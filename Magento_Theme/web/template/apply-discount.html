@@ -1,0 +1,8 @@
+<div class="discount-code-custom" data-bind="scope: 'discountCustom'">
+    <form class="form" data-bind="submit: apply">
+        <input class="input-text" type="text" data-bind="value: couponCode, attr: {'placeholder': $t('Enter discount code')}" />
+        <button type="submit" class="action apply primary">
+            <span data-bind="i18n: 'Apply'"></span>
+        </button>
+    </form>
+</div>
