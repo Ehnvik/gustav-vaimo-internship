@@ -1,10 +1,9 @@
 define([
   'ko',
   'uiComponent',
-  'underscore',
   'Magento_Checkout/js/model/step-navigator',
   'Magento_Customer/js/model/customer',
-], function (ko, Component, _, stepNavigator, customer) {
+], function (ko, Component, stepNavigator, customer) {
   'use strict';
 
   return Component.extend({
@@ -25,7 +24,7 @@ define([
         this.stepTitle,
         this.isVisible,
 
-        _.bind(this.navigate, this),
+        this.navigate.bind(this),
         1
       );
 
