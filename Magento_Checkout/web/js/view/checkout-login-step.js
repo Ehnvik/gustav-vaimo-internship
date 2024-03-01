@@ -9,31 +9,47 @@ define([
   return Component.extend({
     defaults: {
       template: 'Magento_Checkout/check-login',
+      customerName: ko.observable(''),
+      isNextEnabled: ko.observable(false),
     },
 
-    isVisible: ko.observable(true),
+    isVisible: ko.observable(customer.isLoggedIn()),
     isLoggedIn: customer.isLoggedIn(),
     stepCode: 'isLoggedCheck',
     stepTitle: 'Logging Status',
 
-    initialize: function () {
+    initialize() {
       this._super();
+      this.checkAuthorization();
+    },
+
+    checkAuthorization() {
+      if (customer.isLoggedIn()) {
+        this.registerNewCheckoutStep();
+        this.checkNameInputValue();
+      }
+    },
+
+    registerNewCheckoutStep() {
       stepNavigator.registerStep(
         this.stepCode,
         null,
         this.stepTitle,
         this.isVisible,
-
         this.navigate.bind(this),
         1
       );
-
-      return this;
     },
 
-    navigate: function () {},
+    checkNameInputValue() {
+      this.customerName.subscribe(newValue => {
+        this.isNextEnabled(newValue.length > 0);
+      });
+    },
 
-    navigateToNextStep: function () {
+    navigate() {},
+
+    navigateToNextStep() {
       stepNavigator.next();
     },
   });

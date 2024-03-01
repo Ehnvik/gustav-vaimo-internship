@@ -1,4 +1,4 @@
-<!--Use 'stepCode' as id attribute-->
+
 <li data-bind="fadeVisible: isVisible, attr: { id: stepCode }">
     <div class="step-title" data-bind="i18n: stepTitle" data-role="title"></div>
     <div id="checkout-step-title"
@@ -8,7 +8,8 @@
         <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
             <div class="actions-toolbar">
                 <div class="primary">
-                    <button data-role="opc-continue" type="submit" class="button action continue primary" data-bind="enable: isLoggedIn, submit: navigateToNextStep">
+                    <input type="text" placeholder="Enter your name" data-bind="value: customerName, valueUpdate: 'input'" required>
+                    <button data-role="opc-continue" type="submit" class="button action continue primary" data-bind="enable: isNextEnabled, submit: navigateToNextStep">
                         <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
                     </button>
                 </div>
