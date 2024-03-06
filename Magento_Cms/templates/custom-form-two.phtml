@@ -1,0 +1,22 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<div id="validation-coupon" data-bind="scope: 'coupon-form'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "coupon-form": {
+                        "component": "Magento_Cms/js/view/validation-coupon"
+                    }
+                }
+            }
+        }
+    }
+</script>
