@@ -3,6 +3,7 @@ define([
   'uiComponent',
   'Magento_Checkout/js/model/step-navigator',
   'Magento_Customer/js/model/customer',
+  'mage/url',
 ], function (ko, Component, stepNavigator, customer) {
   'use strict';
 

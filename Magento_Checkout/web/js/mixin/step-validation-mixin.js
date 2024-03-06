@@ -2,28 +2,30 @@ define([
   'ko',
   'Magento_Customer/js/model/customer',
   'Magento_Checkout/js/model/step-navigator',
-], function (ko, customer, stepNavigator) {
+  'Magento_Checkout/js/model/quote',
+], function (ko, customer, stepNavigator, quote) {
   return function (checkoutComponent) {
     return checkoutComponent.extend({
       defaults: {
-        isVisible: ko.observable(true),
+        visible: ko.observable(!quote.isVirtual() && customer.isLoggedIn()),
+        listens: {
+          visible: 'onVisibleUpdate',
+        },
       },
 
-      initialize() {
-        this._super();
-        if (!customer.isLoggedIn()) {
-          this.isVisible(false);
-          stepNavigator.navigateTo('isLoggedCheck');
-        }
+      navigate() {
+        return customer.isLoggedIn()
+          ? this._super()
+          : this.navigateToAuthStep();
       },
 
-      navigateToNextStep() {
-        if (customer.isLoggedIn()) {
-          this.isVisible(true);
-          stepNavigator.next();
-        } else {
-          this.isVisible(false);
-          stepNavigator.navigateTo('isLoggedCheck');
+      navigateToAuthStep() {
+        stepNavigator.setHash('isLoggedCheck');
+      },
+
+      onVisibleUpdate(visible) {
+        if (!visible || customer.isLoggedIn()) {
+          return this;
         }
       },
     });
