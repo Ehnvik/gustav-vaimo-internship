@@ -1,0 +1,38 @@
+//
+//  Desktop
+//  _____________________________________________
+
+.custom-header-container {
+    .custom-wishlist-container {
+        .wishlist-link {
+            .total-items-icon {
+                .lib-icon-font(
+                    @_icon-font-content: @icon-wishlist-full;
+                    @_icon-font-size: 38px;
+                );
+
+                &:hover {
+                    color: @color-vaimo-yellow !important;
+                }
+            }
+
+            .total-items-number {
+                margin-bottom: 0;
+                border-radius: 2px;
+                padding: 0 5px;
+                background-color: @color-vaimo-yellow;
+
+                &:hover {
+                    color: white;
+                }
+            }
+
+            &:hover {
+                text-decoration: none;
+                color: white !important;
+            }
+
+        }
+
+    }
+}
