@@ -24,7 +24,6 @@ define([
 
     initialize: function () {
       this._super();
-      // Initialiserar din komponent här
     },
 
     apply: function () {
@@ -41,10 +40,8 @@ define([
 
         success: function (response) {
           if (response.success) {
-            console.log('Success: ', response);
             this.isApplied(true);
           } else {
-            // Hantera fel
           }
           fullScreenLoader.stopLoader();
         }.bind(this),
