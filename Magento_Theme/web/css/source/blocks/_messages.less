@@ -1,0 +1,52 @@
+//
+//  Desktop
+//  _____________________________________________
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .message-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .page.messages {
+            position: fixed;
+            width: 400px;
+            z-index: 10000;
+            margin-top: 25px;
+
+            .message {
+                border-radius: 8px;
+                font-size: 14px;
+                animation: slide-down-fade 0.8s ease-out forwards;
+
+                @keyframes slide-down-fade {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(-100%);
+                    }
+
+                    100% {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .close-message-icon {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    cursor: pointer;
+
+                    .lib-icon-font(
+                        @_icon-font-content: @icon-remove;
+                        @_icon-font-size: 25px;
+                    );
+                }
+            }
+        }
+    }
+
+
+}

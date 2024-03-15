@@ -12,6 +12,10 @@
         <move element="minicart" destination="custom.header.container" after="wish-list-link" />
         <move element="my-account-link" destination="custom.header.container" before="wish-list-link"  />
         <move element="top.search" destination="header-wrapper" before="-" />
+        <move element="message.container" destination="header.container" after="-" />
+        <move element="page.messages" destination="message.container" after="-" />
+
+        <container name="message.container" htmlTag="div" htmlClass="message-container" />
 
         <referenceContainer name="header-wrapper">
             <container name="custom.header.container" label="custom header container" htmlTag="div" htmlClass="custom-header-container" />
