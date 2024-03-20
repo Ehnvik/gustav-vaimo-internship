@@ -33,18 +33,6 @@ define(['ko', 'uiCollection', 'uiLayout', 'uiRegistry'], (
       if (this.todos?.length) {
         return this.renderTodos();
       }
-
-      // try {
-      //   const response = await fetch(this.url);
-      //
-      //   if (!response.ok) {
-      //     throw new Error(response.statusText);
-      //   }
-      //
-      //   this.todos = await response.json();
-      // } catch (exception) {
-      //   throw exception;
-      // }
     },
 
     renderTodos() {
@@ -79,19 +67,12 @@ define(['ko', 'uiCollection', 'uiLayout', 'uiRegistry'], (
 
         return true;
       } catch (exception) {
-        console.error(exception);
         return false;
       }
     },
 
     findTodoById(id) {
-      const item = this.todos.find(todo => todo.id === id);
-
-      if (!item) {
-        console.error('Item not found');
-      }
-
-      return item;
+      return this.todos.find(todo => todo.id === id);
     },
 
     findTodoByIdAndUpdate(id, item) {
@@ -100,7 +81,6 @@ define(['ko', 'uiCollection', 'uiLayout', 'uiRegistry'], (
       });
 
       if (index < 0) {
-        console.error('Index not found');
         return false;
       }
 
