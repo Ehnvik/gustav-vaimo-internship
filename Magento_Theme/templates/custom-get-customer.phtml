@@ -1,0 +1,19 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<div id="get-customer">
+    <p id="error-message"></p>
+    <button id="get-customer-button">Get Customer</button>
+    <p id="show-customer"></p>
+</div>
+
+
+<script type="text/x-magento-init">
+    {
+        "#get-customer": {
+            "Magento_Theme/js/custom-get-customer": {}
+        }
+    }
+</script>
