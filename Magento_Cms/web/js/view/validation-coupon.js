@@ -13,12 +13,9 @@ define(['ko', 'uiComponent', 'jquery', 'mage/translate', 'jquery/validate'], (
       this.validateCouponForm();
     },
     validateCouponForm() {
-      console.log('Hello');
       $.validator.addMethod(
         'second-coupon-abc-123',
         inputValue => {
-          console.log('input value ', inputValue);
-
           return /^[A-Z]{3}-\d{3}$/.test(inputValue);
         },
         $.mage.__('Please enter a coupon code in the format ABC-123')
