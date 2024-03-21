@@ -18,7 +18,6 @@
         </referenceContainer>
 
         <referenceContainer name="content">
-            <block template="Magento_Theme::todo.phtml"/>
             <block name="custom.get.customer" template="Magento_Theme::custom-get-customer.phtml" />
         </referenceContainer>
 

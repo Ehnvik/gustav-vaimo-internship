@@ -2,7 +2,7 @@ define(['jquery', 'mage/url', 'jquery-ui-modules/widget'], ($, urlBuilder) => {
   $.widget('vaimo.getCustomerWidget', {
     options: {
       accessToken:
-        'eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjEsInV0eXBpZCI6MiwiaWF0IjoxNzEwOTQyNjU5LCJleHAiOjE3MTA5NDYyNTl9._cgpyPj4Dnju_gkHW6Noih66oHAqiyZSziS4dceL9h4',
+        'eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjEsInV0eXBpZCI6MiwiaWF0IjoxNzExMDA5OTIzLCJleHAiOjE3MTEwMTM1MjN9.AxukwY_ZCUNRxwltVx-IIm9E50HzKvlJXCsT7p2Tybo',
     },
 
     _create() {
@@ -10,16 +10,12 @@ define(['jquery', 'mage/url', 'jquery-ui-modules/widget'], ($, urlBuilder) => {
     },
 
     getCustomerButton() {
-      const self = this;
-
-      $('#get-customer-button').on('click', function () {
+      $('#get-customer-button').on('click', () => {
         self.fetchCustomer();
       });
     },
 
     fetchCustomer() {
-      const self = this;
-
       $.ajax({
         url: urlBuilder.build('rest/all/V1/customers/2'),
         beforeSend: xhr => {
@@ -30,7 +26,7 @@ define(['jquery', 'mage/url', 'jquery-ui-modules/widget'], ($, urlBuilder) => {
         },
       })
         .done(data => {
-          self.showCustomer(data);
+          this.showCustomer(data);
         })
         .fail(jqXHR => {
           let errorMessage = 'An unexpected error occurred. Please try again.';
@@ -38,7 +34,7 @@ define(['jquery', 'mage/url', 'jquery-ui-modules/widget'], ($, urlBuilder) => {
           if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
             errorMessage = jqXHR.responseJSON.message;
           }
-          self.showError(errorMessage);
+          this.showError(errorMessage);
         });
     },
 
