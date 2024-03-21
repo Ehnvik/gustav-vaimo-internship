@@ -3,23 +3,15 @@
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
 
-<h3>Search Country</h3>
-<p id="error-message"></p>
-<form id="search-country-form" data-mage-init='{"validation": {}}'>
-    <label for="country-id">Country ID</label>
-    <input type="text" name="country-id" id="country-id" class="country-id" data-validate="{'validate-country-id':true}" placeholder="Country ID..."/>
-    <button type="submit">Search</button>
+<h3 data-bind="i18n: 'Search Country'"></h3>
+<p class="js-error-message"></p>
+<form id="search-country-form" data-mage-init='{"validation": {}, "Magento_Cms/js/custom-country-form": {}}'>
+    <label for="country-id" data-bind="i18n: 'Country ID'"></label>
+    <input type="text" name="country-id" id="country-id" class="js-country-id" data-validate="{'validate-country-id':true}" placeholder="<?= $block->escapeHtml(__('Country ID...')) ?>"/>
+    <button type="submit" data-bind="i18n: 'Search'"></button>
 </form>
 
 <div>
-    <p id="country-name"></p>
+    <p class="js-country-name country-name"></p>
 </div>
 
-
-<script type="text/x-magento-init">
-    {
-        "#search-country-form": {
-            "Magento_Cms/js/custom-country-form": {}
-        }
-    }
-</script>

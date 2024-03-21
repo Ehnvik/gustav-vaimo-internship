@@ -1,25 +1,40 @@
-define(['jquery', 'mage/url', 'jquery-ui-modules/widget', 'jquery/validate'], (
+define(['jquery', 'mage/url', 'jquery-ui-modules/widget', 'mage/validation'], (
   $,
   urlBuilder
 ) => {
   $.widget('vaimo.countryFormWidget', {
-    options: {},
-
     _create() {
-      this.submitForm();
+      this._init();
     },
 
-    submitForm() {
-      const self = this;
+    _init() {
+      this.addEventListeners();
+    },
 
-      $('#search-country-form').on('submit', function (e) {
-        e.preventDefault();
-        if ($(this).valid()) {
-          const countryId = $('#country-id').val();
-
-          self.fetchCountry(countryId);
-        }
+    addEventListeners() {
+      this._on(this.element, {
+        submit: 'onSubmit',
       });
+    },
+
+    onSubmit(e) {
+      e.preventDefault();
+      const form = $(e.currentTarget);
+
+      if (!form.valid()) {
+        return this;
+      }
+
+      const countryIdField = form
+        .serializeArray()
+        .find(field => field.name === 'country-id');
+      const countryId = countryIdField ? countryIdField.value : null;
+
+      if (countryId) {
+        this.fetchCountry(countryId);
+      } else {
+        this.showError('Country ID is required.');
+      }
     },
 
     fetchCountry(countryId) {
@@ -28,37 +43,31 @@ define(['jquery', 'mage/url', 'jquery-ui-modules/widget', 'jquery/validate'], (
         url: urlBuilder.build(`rest/all/V1/directory/countries/${countryId}`),
       })
         .done(data => {
-          $('#country-name')
-            .text('Country: ' + data.full_name_english)
-            .show();
-          $('#error-message').hide();
+          this.showCustomer(data);
         })
         .fail(jqXHR => {
-          let userMessage =
-            'Error, your request could not be sent. Please try again later.';
+          let errorMessage =
+            'An unexpected error occurred. Please try again later.';
 
-          if (jqXHR.responseText) {
-            try {
-              let response = JSON.parse(jqXHR.responseText);
-
-              if (response && response.message) {
-                userMessage = response.message;
-              }
-            } catch (e) {
-              userMessage =
-                'An unexpected error occurred. Please try again later.';
-            }
-          } else {
-            userMessage =
-              'Network error, please check your connection and try again.';
+          if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+            errorMessage = jqXHR.responseJSON.message;
           }
-
-          $('#error-message').text(userMessage).show();
+          this.showError(errorMessage);
         })
         .always(() => {
           $('body').trigger('processStop');
-          $('#country-id').val('');
         });
+    },
+
+    showCustomer(customerData) {
+      $('.js-country-name')
+        .text('Country: ' + customerData.full_name_english)
+        .show();
+      $('.js-error-message').hide();
+    },
+
+    showError(errorMessage) {
+      $('.js-error-message').text(errorMessage).show();
     },
   });
 
