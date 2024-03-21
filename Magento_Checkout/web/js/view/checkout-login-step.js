@@ -3,21 +3,22 @@ define([
   'uiComponent',
   'Magento_Checkout/js/model/step-navigator',
   'Magento_Customer/js/model/customer',
-], function (ko, Component, stepNavigator, customer) {
+  'mage/translate',
+], function (ko, Component, stepNavigator, customer, $t) {
   'use strict';
 
   return Component.extend({
     defaults: {
       template: 'Magento_Checkout/check-login',
+      isVisible: ko.observable(true),
+      isLoggedIn: customer.isLoggedIn(),
+      stepCode: 'isLoggedCheck',
+      stepTitle: 'Logging Status',
     },
-
-    isVisible: ko.observable(true),
-    isLoggedIn: customer.isLoggedIn(),
-    stepCode: 'isLoggedCheck',
-    stepTitle: 'Logging Status',
 
     initialize: function () {
       this._super();
+      this.stepTitle = $t('Logging Status');
       stepNavigator.registerStep(
         this.stepCode,
         null,

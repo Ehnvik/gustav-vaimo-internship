@@ -11,20 +11,24 @@ define([
 
       initialize() {
         this._super();
+
         if (!customer.isLoggedIn()) {
-          this.isVisible(false);
-          stepNavigator.navigateTo('isLoggedCheck');
+          this.navigateToAuthStep();
         }
       },
 
       navigateToNextStep() {
-        if (customer.isLoggedIn()) {
-          this.isVisible(true);
-          stepNavigator.next();
-        } else {
-          this.isVisible(false);
-          stepNavigator.navigateTo('isLoggedCheck');
+        if (!customer.isLoggedIn()) {
+          return this.navigateToAuthStep();
         }
+
+        this.isVisible(true);
+        stepNavigator.next();
+      },
+
+      navigateToAuthStep() {
+        this.isVisible(false);
+        stepNavigator.navigateTo('isLoggedCheck');
       },
     });
   };
